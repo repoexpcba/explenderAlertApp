@@ -1,1 +1,22 @@
-<p>buttons-alert works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 text-center">
+        <h1>Seleccione Tipo de Emergencia</h1>
+      </div>
+      <div class="col-12 text-center">
+        <button type="button" (click)="securityAlert()" class="alert-button margin-top" title="Alerta Seguridad">
+            <img src="../../../assets/images/alerta_seguridad.png" alt="Alerta Seguridad" />
+        </button>
+      </div>
+      <div class="col-12 text-center">
+        <button type="button" (click)="medicalAlert()" class="alert-button margin-top" title="Alerta Medica">
+            <img src="../../../assets/images/alerta_medica.png" alt="Alerta Medica" />
+        </button>
+      </div>
+      <div class="col-12 text-center">
+        <button type="button" (click)="otherAlert()" class="alert-button margin-top" title="Otras Alertas">
+            <img src="../../../assets/images/otras_alertas.png" alt="Otras Alertas" />
+        </button>
+      </div>
+    </div>
+  </div>

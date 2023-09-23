@@ -6,5 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./buttons-alert.component.css']
 })
 export class ButtonsAlertComponent {
+  securityAlert() {
+    console.log("alerta Seguridad")
+  }
 
+  medicalAlert() {
+    console.log("alerta medica")
+  }
+
+  otherAlert() {
+    console.log("otras alertas")
+  }
 }

@@ -1,0 +1,16 @@
+.margin-top {
+    margin-top: 20px;
+}
+
+.alert-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 3px;
+}
+
+.alert-button img {
+    width: 63px; 
+    height: 63px;
+    cursor: pointer;
+}
