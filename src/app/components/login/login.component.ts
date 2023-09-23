@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class LoginComponent implements OnInit {
   loginForm: LoginForm = new LoginForm();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   ngOnInit(): void {}
 
@@ -38,9 +38,26 @@ export class LoginComponent implements OnInit {
           const token = response.token;
           const expiresIn = 13600;
           const expirationDate = new Date().getTime() + expiresIn * 1000;
+          const decodedToken = this.jwtHelper.decodeToken(token);
+          const tipoUsuario = decodedToken.tipo_usuario;
           localStorage.setItem('token', token);
+          localStorage.setItem('information', decodedToken);
           localStorage.setItem('expirationDate', expirationDate.toString());
-          window.location.href = '/';
+
+          switch (tipoUsuario) {
+            case "3": //Administrador
+              window.location.href = '/alerts';
+              break;
+            
+            case "2": //Monitoreo
+              window.location.href = '/alerts';
+              break;
+            case "1": //Propietario
+              window.location.href = '/buttonAlert';
+              break;
+            default:
+              break;
+          }
         }
       },
       (error) => {

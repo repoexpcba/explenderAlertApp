@@ -12,11 +12,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './components/logout/logout.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { AlertsComponent } from './components/alerts/alerts.component';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { MatMenuModule } from '@angular/material/menu';
     LoginComponent,
     NavbarComponent,
     ButtonsAlertComponent,
-    LogoutComponent
+    LogoutComponent,
+    AlertsComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,15 @@ import { MatMenuModule } from '@angular/material/menu';
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+        allowedDomains: ['example.com'], // Dominios permitidos
+        disallowedRoutes: ['http://example.com/api/login'], // Rutas No permitidas
+      },
+    }),
     MatMenuModule
   ],
   providers: [],
