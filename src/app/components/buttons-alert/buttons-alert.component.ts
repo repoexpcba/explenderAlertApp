@@ -26,21 +26,46 @@ export class ButtonsAlertComponent implements OnInit {
     }
 
     if (token != null && user_id != null) {
-      this.apiService.generateAlert('Alert', 'generateAlert', token, user_id, data).subscribe(
-        (response) => {
-          if (!response.error) {
-            alert('Se generó la alerta');
-          } else {
-            alert('Error al guardar la informacion')
+      // Obtener la ubicación del dispositivo
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            // Obtener las coordenadas de la ubicación
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            // Crear una cadena de ubicación con las coordenadas
+            const ubicacion = `${latitude}, ${longitude}`;
+
+            data.ubicacion = ubicacion;
+
+            this.apiService
+              .generateAlert('Alert', 'generateAlert', token, user_id, data)
+              .subscribe(
+                (response) => {
+                  if (!response.error) {
+                    alert('Se generó la alerta');
+                  } else {
+                    alert('Error al guardar la información');
+                  }
+                },
+                (error) => {
+                  alert('Ocurrió un error');
+                }
+              );
+          },
+          (error) => {
+            console.error('Error al obtener la ubicación:', error);
+            alert('No se pudo obtener la ubicación del dispositivo');
           }
-        },
-        (error) => {
-          alert('Ocurrió un error');
-        }
-      );
+        );
+      } else {
+        alert('Geolocalización no soportada en este navegador');
+      }
     } else {
-      alert("No se encontró token")
+      alert('No se encontró token');
     }
+
     console.log("alerta Seguridad")
   }
 
