@@ -36,11 +36,13 @@ export class LoginComponent implements OnInit {
           }
         } else {
           const token = response.token;
+          const user_id = response.user_id;
           const expiresIn = 13600;
           const expirationDate = new Date().getTime() + expiresIn * 1000;
           const decodedToken = this.jwtHelper.decodeToken(token);
           const tipoUsuario = decodedToken.tipo_usuario;
           localStorage.setItem('token', token);
+          localStorage.setItem('user_id', user_id);
           localStorage.setItem('information', decodedToken);
           localStorage.setItem('expirationDate', expirationDate.toString());
 

@@ -7,7 +7,7 @@ import { AlertsComponent } from './components/alerts/alerts.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'buttonAlert', component: ButtonsAlertComponent },
+  { path: 'buttonAlert', component: ButtonsAlertComponent, canActivate: [AuthGuard] },
   { path: 'alerts', component: AlertsComponent, canActivate: [AuthGuard] }
 ];
 
