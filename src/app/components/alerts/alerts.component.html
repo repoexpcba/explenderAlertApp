@@ -1,1 +1,91 @@
-<p>alerts works!</p>
+<table class="table table-responsive table-m table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">Tipo Alerta</th>
+        <th class="text-center">Propietario</th>
+        <th class="text-center">Ubicacion</th>
+        <th class="text-center">Hora</th>
+        <th class="text-center">Fecha</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let alert of alerts">
+        <tr>
+          <ng-container *ngIf="alert">
+            <td class="text-center">{{ alert.tipo_alerta }}</td>
+            <td class="text-center">{{ alert.propietario }}</td>
+            <td class="text-center">
+                <a [href]="'https://www.google.com/maps/search/?api=1&query=' + alert.ubicacion" target="_blank">
+                  {{ alert.ubicacion }}
+                </a>
+              </td>
+            <td class="text-center">{{ alert.hora }}</td>
+            <td class="text-center">{{ alert.fecha }}</td>
+            <td class="text-center">
+              <button
+                type="button"
+                class="button-style"
+                title="Editar"
+              >
+                <img src="../../../assets/images/editar.png" alt="Editar" />
+              </button>
+              <button
+                type="button"
+                class="button-style"
+                title="Eliminar"
+              >
+                <img src="../../../assets/images/eliminar.png" alt="Eliminar" />
+              </button>
+            </td>
+          </ng-container>
+  
+          <!-- <ng-container *ngIf="!alerts[i]">
+            <td class="text-center">-</td>
+            <td class="text-center">-</td>
+            <td class="text-center">-</td>
+            <td class="text-center">-</td>
+            <td class="text-center">-</td>
+            <td></td>
+          </ng-container> -->
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  
+  <!-- <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{ disabled: currentPage === 1 }">
+        <button
+          class="page-link"
+          (click)="prevPage()"
+          [disabled]="currentPage === 1"
+        >
+          Anterior
+        </button>
+      </li>
+      <ng-container *ngFor="let page of getPagesArray()">
+        <li class="page-item" [ngClass]="{ active: page === currentPage }">
+          <button class="page-link" *ngIf="page === currentPage; else pageLink">
+            {{ page }}
+          </button>
+          <ng-template #pageLink>
+            <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+          </ng-template>
+        </li>
+      </ng-container>
+      <li
+        class="page-item"
+        [ngClass]="{ disabled: currentPage === getTotalPages() }"
+      >
+        <button
+          class="page-link"
+          (click)="nextPage()"
+          [disabled]="currentPage === getTotalPages()"
+        >
+          Siguiente
+        </button>
+      </li>
+    </ul>
+  </nav> -->
+  

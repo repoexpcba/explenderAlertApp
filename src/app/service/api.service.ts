@@ -28,4 +28,20 @@ export class ApiService {
     const body = { ...data, user_id: user_id };
     return this.http.post<any>(this.urlAPI + controller + '/' + endpoint, body, { headers });
   }
+
+  /**
+   * Obtiene todos los registros
+   * @param endpoint 
+   * @param token 
+   * @returns 
+   */
+  public getAlerts(controller: string, endpoint: string, token: string, user_id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    const body = { token : token,user_id: user_id };
+
+    return this.http.post<any>(this.urlAPI + controller + '/' + endpoint, body, { headers });
+  }
+
 }
