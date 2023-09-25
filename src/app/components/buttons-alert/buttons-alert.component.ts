@@ -21,24 +21,27 @@ export class ButtonsAlertComponent implements OnInit {
       user_id: user_id,
       ubicacion: "",
       fecha: new Date,
-      tipo_alerta_id : 1,
-      token : token
+      tipo_alerta_id: 1,
+      token: token
     }
 
     if (token != null && user_id != null) {
       // Obtener la ubicación del dispositivo
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
+        const opciones = {
+          enableHighAccuracy: true,
+          maximumAge: 30000,
+          timeout: 27000
+        };
+
+        const watchId = navigator.geolocation.watchPosition(
           (position) => {
             // Obtener las coordenadas de la ubicación
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
-
             // Crear una cadena de ubicación con las coordenadas
             const ubicacion = `${latitude}, ${longitude}`;
-
             data.ubicacion = ubicacion;
-
             this.apiService
               .generateAlert('Alert', 'generateAlert', token, user_id, data)
               .subscribe(
@@ -57,7 +60,8 @@ export class ButtonsAlertComponent implements OnInit {
           (error) => {
             console.error('Error al obtener la ubicación:', error);
             alert('No se pudo obtener la ubicación del dispositivo');
-          }
+          },
+          opciones
         );
       } else {
         alert('Geolocalización no soportada en este navegador');
@@ -76,4 +80,6 @@ export class ButtonsAlertComponent implements OnInit {
   otherAlert() {
     console.log("otras alertas")
   }
+
+
 }

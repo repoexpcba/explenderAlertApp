@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,13 +14,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    const urlAPI = 'http://localhost:81/apiExplenderAlert/Login/iniciar_sesion';
+    const urlAPI = 'https://apiexplenderalert.000webhostapp.com/Login/iniciar_sesion';
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
     const requestBody = {
       username: this.loginForm.username,
       password: this.loginForm.password,
     };
-
+    console.log(urlAPI)
+    console.log(requestBody)
+      console.log(headers)
     this.http.post(urlAPI, requestBody, { headers }).subscribe(
       (response: any) => {
         if (response.error) {
@@ -41,39 +43,24 @@ export class LoginComponent implements OnInit {
           const expirationDate = new Date().getTime() + expiresIn * 1000;
           const decodedToken = this.jwtHelper.decodeToken(token);
           const tipoUsuario = decodedToken.tipo_usuario;
-
           localStorage.setItem('token', token);
           localStorage.setItem('user_id', user_id);
           localStorage.setItem('information', decodedToken);
           localStorage.setItem('expirationDate', expirationDate.toString());
 
-          // Solicitar permiso de ubicación al usuario
-          if (navigator.permissions) {
-            navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-              if (result.state === 'granted') {
-                // Permiso ya otorgado, redirigir según el tipo de usuario
-                this.redirectUser(tipoUsuario);
-              } else if (result.state === 'prompt') {
-                // Solicitar permiso al usuario
-                navigator.geolocation.getCurrentPosition(
-                  () => {
-                    // Permiso otorgado, redirigir según el tipo de usuario
-                    this.redirectUser(tipoUsuario);
-                  },
-                  () => {
-                    // Permiso denegado, mostrar mensaje de error
-                    alert('No se otorgó permiso para acceder a la ubicación del dispositivo');
-                  }
-                );
-              } else if (result.state === 'denied') {
-                // Permiso denegado, mostrar mensaje de error
-                alert('No se otorgó permiso para acceder a la ubicación del dispositivo');
-              }
-            });
-          } else {
-            // El navegador no admite la API de permisos
-            alert('El navegador no admite la API de permisos');
-            this.redirectUser(tipoUsuario);
+          switch (tipoUsuario) {
+            case "3": //Administrador
+              window.location.href = '/alerts';
+              break;
+            
+            case "2": //Monitoreo
+              window.location.href = '/alerts';
+              break;
+            case "1": //Propietario
+              window.location.href = '/buttonAlert';
+              break;
+            default:
+              break;
           }
         }
       },
@@ -87,24 +74,7 @@ export class LoginComponent implements OnInit {
     console.log(localStorage.getItem('token'));
     console.log(localStorage.getItem('expirationDate'));
   }
-
-  redirectUser(tipoUsuario: string) {
-    switch (tipoUsuario) {
-      case '3': // Administrador
-        window.location.href = '/alerts';
-        break;
-      case '2': // Monitoreo
-        window.location.href = '/alerts';
-        break;
-      case '1': // Propietario
-        window.location.href = '/buttonAlert';
-        break;
-      default:
-        break;
-    }
-  }
 }
-
 class LoginForm {
   username: string = '';
   password: string = '';
