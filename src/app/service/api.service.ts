@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
  * Manejo de solicitudes HTTP con la API
  */
 export class ApiService {
-  private urlAPI = 'http://localhost:81/apiExplenderAlert/';
+  private urlAPI = 'https://d36d-200-126-197-195.ngrok-free.app/apiExplenderAlert/';
 
   constructor(private http: HttpClient) { }
 
