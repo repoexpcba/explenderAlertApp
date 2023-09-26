@@ -15,7 +15,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     const urlAPI = 'https://9213-200-126-197-195.ngrok.io/apiExplenderAlert/Login/iniciar_sesion';
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true' // Agregar el encabezado ngrok-skip-browser-warning
+    });
 
     const requestBody = {
       username: this.loginForm.username,
