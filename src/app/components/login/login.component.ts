@@ -14,9 +14,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    const urlAPI = 'https://9213-200-126-197-195.ngrok.io/apiExplenderAlert/Login/iniciar_sesion';
+    const urlAPI = 'https://d36d-200-126-197-195.ngrok-free.app/apiExplenderAlert/Login/iniciar_sesion';
     const headers = new HttpHeaders({ 
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true'
     });
 
     const requestBody = {
