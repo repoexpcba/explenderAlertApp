@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 
           switch (tipoUsuario) {
             case "3": //Administrador
-              window.location.href = '/alerts';
+              window.location.href = '/buttonAlert';
               break;
             
             case "2": //Monitoreo
