@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { MatDialog } from '@angular/material/dialog';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,13 +11,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class LoginComponent implements OnInit {
   loginForm: LoginForm = new LoginForm();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private matDialog: MatDialog) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSubmit() {
     const urlAPI = 'https://d36d-200-126-197-195.ngrok-free.app/apiExplenderAlert/Login/iniciar_sesion';
-    const headers = new HttpHeaders({ 
+    const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'ngrok-skip-browser-warning': 'true'
     });
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
     };
     console.log(urlAPI)
     console.log(requestBody)
-      console.log(headers)
+    console.log(headers)
     this.http.post(urlAPI, requestBody, { headers }).subscribe(
       (response: any) => {
         if (response.error) {
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
             case "3": //Administrador
               window.location.href = '/buttonAlert';
               break;
-            
+
             case "2": //Monitoreo
               window.location.href = '/alerts';
               break;
@@ -73,9 +75,8 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  onCreateUser() {
-    console.log(localStorage.getItem('token'));
-    console.log(localStorage.getItem('expirationDate'));
+  openForgotPasswordModal() {
+    this.matDialog.open(ForgotPasswordComponent);
   }
 }
 class LoginForm {

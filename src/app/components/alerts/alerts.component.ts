@@ -29,20 +29,6 @@ export class AlertsComponent implements OnInit {
 
         }
       );
-      // this.apiService
-      //   .paginated('provinces', token, this.currentPage, this.pageSize)
-      //   .subscribe(
-      //     (data) => {
-      //       this.provinces = data.content;
-      //       this.totalItems = data.totalElements;
-      //     },
-      //     (error) => {
-      //       console.log(
-      //         'Error al obtener los datos de los centros médicos:',
-      //         error
-      //       );
-      //     }
-      //   );
     } else {
       console.log('No se encontro token');
     }

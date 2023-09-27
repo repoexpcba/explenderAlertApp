@@ -208,3 +208,29 @@ body {
     width: 50%;
   }
 }
+
+.custom-button {
+  background-color: green;
+  color: white;
+}
+
+.custom-button:hover {
+  background-color: rgb(37, 186, 37);
+}
+
+.snackbar-style {
+  background-color: blueviolet;
+  margin-bottom: 16px; /* Ajusta el margen inferior según sea necesario */
+  border-radius: 4px; /* Agrega bordes redondeados si lo deseas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Agrega una sombra si lo deseas */
+}
+
+.green-snackbar {
+  background: rgb(65, 252, 134);
+  color: white;
+}
+.green-snackbar-button {
+  background-color: rgb(65, 252, 134);
+  color: white;
+  border: none;
+}

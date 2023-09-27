@@ -7,18 +7,20 @@ import { LoginComponent } from './components/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ButtonsAlertComponent } from './components/buttons-alert/buttons-alert.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { LogoutComponent } from './components/logout/logout.component';
 import { JwtModule } from '@auth0/angular-jwt';
 
-
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { AlertsComponent } from './components/alerts/alerts.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ToastrService } from 'ngx-toastr/public_api';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     NavbarComponent,
     ButtonsAlertComponent,
     LogoutComponent,
-    AlertsComponent
+    AlertsComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,9 @@ import { AlertsComponent } from './components/alerts/alerts.component';
     }),
     BrowserAnimationsModule,
     MatButtonModule,
+    MatInputModule,
     MatToolbarModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
