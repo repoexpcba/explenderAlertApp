@@ -14,6 +14,7 @@ export class ButtonsAlertComponent implements OnInit {
   ngOnInit(): void {
   }
   securityAlert() {
+    
     const token = localStorage.getItem('token');
     const user_id = localStorage.getItem('user_id');
 
@@ -33,7 +34,7 @@ export class ButtonsAlertComponent implements OnInit {
           maximumAge: 30000,
           timeout: 27000
         };
-
+        let watched = false;
         const watchId = navigator.geolocation.watchPosition(
           (position) => {
             // Obtener las coordenadas de la ubicación
@@ -42,12 +43,14 @@ export class ButtonsAlertComponent implements OnInit {
             // Crear una cadena de ubicación con las coordenadas
             const ubicacion = `${latitude}, ${longitude}`;
             data.ubicacion = ubicacion;
-            this.apiService
+            if (!watched) {
+              this.apiService
               .generateAlert('Alert', 'generateAlert', token, user_id, data)
               .subscribe(
                 (response) => {
                   if (!response.error) {
                     alert('Se generó la alerta');
+                    watched = true;
                   } else {
                     alert('Error al guardar la información');
                   }
@@ -56,6 +59,7 @@ export class ButtonsAlertComponent implements OnInit {
                   alert('Ocurrió un error');
                 }
               );
+            }            
           },
           (error) => {
             console.error('Error al obtener la ubicación:', error);
